@@ -1,7 +1,7 @@
 class TodosController < ApplicationController
   def index
-    todos = Todo.all
-    render json: todos.as_json
+    @todos = Todo.all
+    render :index
   end
 
   def create
@@ -14,7 +14,7 @@ class TodosController < ApplicationController
     )
 
     if todo.save 
-      render json: todo.as_json
+      render :show
     else
       render json: {errors: todo.errors.full_messages}, status: 422
     end
@@ -23,7 +23,7 @@ class TodosController < ApplicationController
   def show
     id = params[:id]
     todo = Todo.find(id)
-    render json: todo.as_json
+    render :show
   end
 
   def update
@@ -39,7 +39,7 @@ class TodosController < ApplicationController
     )
 
     if todo.save 
-      render json: todo.as_json
+      render :show
     else
       render json: {errors: todo.errors.full_messages}, status: 422
     end
